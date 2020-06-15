@@ -1,0 +1,36 @@
+package Coins;
+import java.util.Scanner;
+
+public class Coins {
+
+	public static void main(String[] args) 
+	{
+		Scanner Scan = new Scanner(System.in);
+		final int Quarter = 25;
+		final int Dime = 10;
+		final int Nickel = 5;
+		final int Penny = 1;
+		
+		System.out.println("Enter the number you want to assort");
+		int num = Scan.nextInt();
+		
+		
+		int numberOfQuarters = num/Quarter;
+		System.out.println(numberOfQuarters +" Quarter(s)");
+		
+		
+		int dimeDividerNum = num%Quarter;
+		int numberOfDimes = dimeDividerNum/Dime;
+		System.out.println(numberOfDimes + " Dime(s)");
+		
+		
+		
+		int nickelDividerNum = num / Penny - (numberOfQuarters *25)  - (numberOfDimes * 10);
+		int numberOfNickels = nickelDividerNum / Nickel;
+		System.out.println(numberOfNickels + " Nickel(s)");
+		
+		System.out.println(num / Penny - (numberOfQuarters *25)  - (numberOfDimes * 10) - (numberOfNickels*5) +  " pennie(s)");
+		
+	}
+	
+}

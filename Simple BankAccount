@@ -1,0 +1,98 @@
+package bank;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+import java.util.Random;
+public class banking {
+	int depositAmount;
+	int withdrawAmount;
+
+	public static void main(String[] args) throws InterruptedException 
+		
+	{
+		Scanner scan = new Scanner(System.in);
+		Random rand = new Random();
+		int accountNumber;
+		String customerName;
+		System.out.println("What is your name?");
+		customerName = scan.nextLine();
+		accountNumber = Math.abs(rand.nextInt());
+				
+				
+		System.out.println("Retrieving Info..");
+		TimeUnit.SECONDS.sleep(3);
+		
+		System.out.println("===========================================");
+		System.out.println("Hello " + customerName);
+		System.out.println("Customer ID: " + accountNumber);
+		System.out.println("===========================================");
+		
+		showOptions();
+		}
+	
+	public static void showOptions()
+	{
+		Scanner scan = new Scanner(System.in);
+		char option;
+		int balance = 0;
+		int lastTransaction = 0;
+		System.out.println("A. Check Balance");
+		System.out.println("B. Deposit");
+		System.out.println("C. Withdraw");
+		System.out.println("D. Last Transaction");
+		System.out.println("E. Exit");
+		do {
+			
+			System.out.println("Enter an option");
+			
+			String str = scan.next();
+			option = str.charAt(0);
+				switch(option)
+				{
+				case 'A':
+				System.out.println("===========================================");
+				System.out.println("Current Balance: $" + balance);
+				System.out.println("===========================================");
+				break;
+				
+				case 'B':
+				System.out.println("===========================================");
+				System.out.println("Enter amount you want to deposit");
+				int amount = scan.nextInt();
+				balance = amount + balance;
+				lastTransaction = amount;
+				System.out.println("New Balance: $" + balance);
+				System.out.println("===========================================");
+				break;
+				
+				case 'C':
+				System.out.println("===========================================");
+				System.out.println("Enter amount you want to withdraw");
+				
+				int amount2 = scan.nextInt();
+				if (amount2 > balance)
+				{
+					System.out.println("You dont have sufficient funds for that transaction.");
+					break;
+				}
+				balance = balance - amount2;
+				lastTransaction = -amount2;
+				System.out.println("New Balance: $" + balance);
+				System.out.println("===========================================");
+				break;
+				
+				case 'D':
+				System.out.println("===========================================");
+				System.out.println("Your last transaction : $" + lastTransaction);
+				System.out.println("===========================================");
+				break;
+				
+				}
+				
+				}while(option != 'E');
+				System.out.println("Thank you for your service");
+		}
+		
+		
+	}
+		
+

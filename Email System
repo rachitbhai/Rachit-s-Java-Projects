@@ -1,3 +1,20 @@
+//THIS IS THE MAIN
+
+package EmailApp;
+public class EmailApp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Email em1 = new Email("Rachit", "Neoupane");
+		System.out.println(em1.display());
+	}
+
+}
+
+
+//NEW CLASS
+
+
 package EmailApp;
 
 import java.util.Scanner;

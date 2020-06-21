@@ -1,0 +1,102 @@
+package EmailApp;
+
+import java.util.Scanner;
+
+public class Email 
+{
+	
+	private String firstName;
+	private String lastName;
+	private String department;
+	private String password;
+	private String email;
+	private int mailboxCapacity = 500;
+	private String altEmail;
+	private String companySuffix = "company.com";
+	private int passLength = 10;
+	
+	public Email(String firstName, String lastName)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		System.out.println("Name : " + firstName + " " + lastName);
+		
+		this.department = department();
+		
+		
+		this.email = generateEmail();
+		
+		
+		this.password = randomPassword(passLength);
+		System.out.println("Your password is : " + this.password);
+	}
+	
+	public String department()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("1: Sales \n2: Development \n3: Accounting \n4: None \nEnter Department Choice");
+		int departmentChoice = scan.nextInt();
+		
+		if (departmentChoice == 1) {return "Sales";}
+		else if (departmentChoice == 2) {return "Development";}
+		else if (departmentChoice == 3) {return "Accounting";}
+		else {return "";}
+		
+	}
+	
+	public String generateEmail()
+	{
+		String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + department.toLowerCase() + "." + companySuffix;
+		return email;
+	}
+	
+	public String randomPassword(int length)
+	{
+		String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456!@#$%";
+		char[] pass = new char[length];
+		for (int i = 0; i < length ; i ++)
+		{
+			int rand = (int) (Math.random() * passwordSet.length());
+			pass[i] = passwordSet.charAt(rand);
+		}
+		return new String(pass);
+	}
+	
+	public void setMailboxCapacity(int mailboxCapacity)
+	{
+		this.mailboxCapacity = mailboxCapacity;
+	}
+	
+	public void setAltEmail(String altEmail)
+	{
+		this.altEmail = altEmail;
+	}
+	
+	public void changePass(String password)
+	{
+		this.password = password;
+	}
+	
+	public int getMailboxCapacity()
+	{
+		return mailboxCapacity;
+	}
+	
+	public String getAltEmail()
+	{
+		return altEmail;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public String display()
+	{
+		return "Name: " + firstName + " " + lastName + 
+				"\nCompany Email: " + email + 
+				"\nMailBox Capacity: " + mailboxCapacity + "mb";
+	}
+
+}

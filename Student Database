@@ -1,0 +1,157 @@
+package database;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		//ask num of students
+		Scanner scan = new Scanner(System.in);
+		System.out.println("How many students do you want to add?");
+		int numOfStudents = scan.nextInt();
+		
+		Student[] students = new Student[numOfStudents];
+		//create number of students
+		for(int i = 0; i < numOfStudents; i++)
+		{
+			students[i] = new Student();
+			System.out.println(students[i].display());
+		}
+		
+
+	}
+
+}
+
+
+
+package database;
+
+import java.util.Scanner;
+
+public class Student {
+	
+	private int numOfStudents;
+	private String firstName;
+	private String lastName;
+	private int year;
+	private String studentID;
+	private String courses = " ";
+	private int balance = 0;
+	private static int courseCost = 600;
+	private static int id = 1000;
+	
+	
+	//constructor: prompt to enter name and year
+	public Student(){
+		
+		askInfo();
+		setStudentID();
+		enroll();
+		payTution();
+	}
+
+	//ask info about students
+	private void askInfo()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter student first name");
+		this.firstName = scan.nextLine();
+		System.out.println("Enter student last name");
+		this.lastName = scan.nextLine();
+		System.out.println("1 - Freshman \n2 - Sophmore \n3 - Junior"
+				+ "\n4 - Senior");
+		System.out.println("Enter student year");
+		this.year = scan.nextInt();
+		switch(this.year)
+		{
+		case 1:
+			year = 1;
+			break;
+		case 2:
+			year = 2;
+			break;
+		case 3:
+			year = 3;
+			break;
+		case 4:
+			year = 4;
+			break;
+		default:
+				System.out.println("Not a valid option.");
+				System.exit(0);
+		}
+		
+		
+	}
+	
+	//generate studentID
+	
+	private void setStudentID()
+	{
+		id++;
+		this.studentID = year + "" + id;
+	}
+	
+	//enroll Courses
+	public void enroll()
+	{
+		do {
+			System.out.print("Enter course to Enroll (Q to Quit): ");
+			Scanner scan = new Scanner(System.in);
+			String course = scan.nextLine();
+			if(!course.equals("Q".toLowerCase()))
+			{
+				courses = courses + "\n   " + course;
+				balance = balance + courseCost;
+			}
+			else {break;}
+		} while (1 != 0);
+		
+	}
+	
+	//view balance 
+	public void viewBalance() {
+		System.out.println("Your balance is: " + balance);
+	}
+	
+	//pay tution
+	public void payTution() {
+		System.out.println();
+		viewBalance();
+		Scanner scan = new Scanner(System.in);
+		System.out.println();
+		System.out.print("Enter payment amount: $");
+		int payment = scan.nextInt();
+		if(payment > balance)
+		{
+			System.out.println("Cannot pay more than what is due.");
+			System.exit(0);
+		}
+		balance = balance - payment;
+		System.out.println("Your payment of $" + payment + " has occured!\nThank you!");
+		System.out.println();
+		if(balance != 0)
+		{
+			System.out.println("Remaining balance : $" + balance);
+		} else
+		{
+			System.out.println("No remaining balance!");
+		}
+		
+	}
+	
+	//print status
+	public String display()
+	{
+		System.out.println();
+		return "Name: " + firstName + " " + lastName
+				+ "\nGrade Level: " + year 
+				+ "\nStudent ID: " + studentID
+				+ "\nCourses:" + courses + 
+				
+				"\nBalance: $" + balance;
+	}
+	
+}

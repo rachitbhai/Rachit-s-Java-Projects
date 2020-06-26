@@ -1,0 +1,231 @@
+
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("What class do you want to run?\n1: Student 2: Teacher 3: School");
+		int choice = scan.nextInt();
+		if (choice == 1)
+		{
+			System.out.println("How many students do you want to add?");
+			int numOfStudents = scan.nextInt();
+			Student[] students = new Student[numOfStudents];
+			for (int i = 0; i < numOfStudents ; i ++) {
+				students[i] = new Student();
+				System.out.println(students[i].display());
+			}
+		} else if(choice == 2)
+		{
+			System.out.println("How many teachers do you want to add?");
+			int numOfTeachers = scan.nextInt();
+			Teacher[] teachers = new Teacher[numOfTeachers];
+			for(int i = 0; i < numOfTeachers; i ++)
+			{
+				teachers[i] = new Teacher();
+			}
+		} else if (choice == 3)
+		{
+			School s = new School();
+		}
+
+	}
+}
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class Student {
+	private String firstName;
+	private String lastName;
+	private int gradeLevel;
+	protected static int tution;
+	protected static int tutionBefore;
+	private String studentID;
+	private int courseCost = 600;
+	private static int id = 1000;
+	private String courses = " ";
+	private int paidTution;
+	
+	public Student()
+	{
+		getName();
+		getGrade();
+		generateID();
+		enroll();
+		payTution();
+	}
+	//get name
+	private void getName()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("What is student's first name?");
+		this.firstName = scan.nextLine();
+		System.out.println("What is student's last name?");
+		this.lastName = scan.nextLine();
+	}
+	
+	//get grade
+	private void getGrade()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("1: Freshman\n2: Sophmore\n3: Junior\n4: Senior\nEnter Student's grade level");
+		gradeLevel = scan.nextInt();
+	}
+	
+	//generate studentID
+	private void generateID()
+	{
+		id++;
+		this.studentID = gradeLevel + "" + id;
+	}
+	//Enroll Classes
+	private void enroll()
+	{
+		String course = "";
+		Scanner scan = new Scanner(System.in);
+		do {
+			System.out.print("Enter the classes student wants to enroll in: ");
+			System.out.println("(Q to end)");
+			course = scan.nextLine();
+			
+		
+			if(!course.equals("Q".toLowerCase()))
+			{
+				courses = courses + "\n" + course;
+				tution = tution + courseCost;
+				
+			}else{break;}
+			
+		} while (1 != 0);
+		System.out.println("Courses taken" + courses);
+
+	}
+	
+	public void tution()
+	{
+		System.out.println("Your balance is : " + tution);
+	}
+	public void payTution()
+	{
+		tution();
+		Scanner scan = new Scanner(System.in);
+		System.out.println("How much of the tution do you want to pay?");
+		paidTution = scan.nextInt();
+		tutionBefore = tution;
+		tution = tution - paidTution;
+		
+		System.out.println("Remaning balance : " + tution);
+	}
+	public int getTution()
+	{
+		return this.tutionBefore;
+	}
+	
+	public String display()
+	{
+		System.out.println();
+		return "Name: " + firstName + " " + lastName
+				+ "\nGrade Level: " + gradeLevel 
+				+ "\nStudent ID: " + studentID
+				+ "\nCourses:" + courses + 
+				
+				"\nBalance: $" + tution;
+	}
+}
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class Teacher{
+	private String firstName;
+	private String lastName;
+	private String ID;
+	private int hoursWorked;
+	protected static double pay;
+	private double minWage = 16.75;
+	private int id = 9000;
+	public Teacher()
+	{
+		getName();
+		generateID();
+		salary();
+	}
+	private void getName()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("What is teacher's first name?");
+		firstName = scan.nextLine();
+		System.out.println("What is teacher's last name?");
+		lastName = scan.nextLine();
+	}
+	private void generateID()
+	{
+		id++;
+		this.ID = id + "";
+		System.out.println("Teacher ID: " + ID);
+	}
+	private void salary()
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("How many hours has teacher worked this month? (8 hours daily)");
+		hoursWorked = scan.nextInt();
+		pay = hoursWorked * minWage;
+		System.out.println("Teacher's take home pay is : $" + pay + " (excluding taxes)");
+	}
+	double getPay()
+	{
+		return this.pay;
+	}
+}
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class School {
+	private int studentsProfit;
+	private double totalWages;
+	private double profit;
+	Student s = new Student();
+	Teacher t = new Teacher();
+	
+	public School()
+	{
+		printTution();
+		teacherPay();
+		profit();
+	}
+	private void printTution()
+	{
+		studentsProfit = s.getTution();
+		System.out.println("Total profit from students: $" + studentsProfit);
+	}
+	private void teacherPay()
+	{
+		totalWages = t.getPay();
+		System.out.println("Total Teacher pay is: $" + totalWages);
+	}
+	private void profit()
+	{
+		profit = studentsProfit - totalWages;
+		System.out.println("Total profit is: $" + profit);
+	}
+}

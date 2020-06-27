@@ -1,0 +1,125 @@
+package Game;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		//system objects
+		Scanner scan = new Scanner(System.in);
+		Random rand = new Random();
+		
+		//game variables
+		String[] enemies = {"Zombie", "Creeper", "Warrior", "Sleleton", "Assasin"};
+		int maxEnemyHealth = 85;
+		int enemyAttackDamage = 25;
+		
+		//player var
+		int health = 100;
+		int playerAttackDamage = 50;
+		int numHealthPots = 3;
+		int healthPotsHealAmount = 30;
+		int healthPotionDropChance = 50; //percent
+		
+		boolean running = true;
+		
+		System.out.println("Welcome to Don's Game!");
+		
+		GAME:
+		while(running) {
+			System.out.println("---------------------------------------");
+			
+			int enemyHealth = rand.nextInt(health);
+			String enemy = enemies[rand.nextInt(enemies.length)];
+			System.out.println("\t# " + enemy + " appeared! #\n");
+			
+			while(enemyHealth > 0) {
+				System.out.println("\tYour HP: " + health);
+				System.out.println("\t"+ enemy + "'s HP: "+ enemyHealth);
+				System.out.println("\n\tWhat would you like to do?");
+				System.out.println("\t1. Attack");
+				System.out.println("\t2. Drink Health Pot");
+				System.out.println("\t3. RUN!");
+				
+				String input = scan.nextLine();
+				
+				if(input.equals("1")) {
+					int damageDone = rand.nextInt(playerAttackDamage);
+					int damageTaken = rand.nextInt(enemyAttackDamage);
+					
+					enemyHealth -= damageDone;
+					health -= damageTaken; 
+					
+					System.out.println("\t> You strike the " + enemy + " for " + damageDone + " damage!");
+					System.out.println("\t> The enemy hit you for " + damageTaken + " damage!");
+					
+					if(health < 1) {
+						System.out.println("\t> You are too weak to move on to the game!");
+						break;
+					}
+					
+				} else if (input.equals("2")) {
+					if(numHealthPots > 0) {
+						health += healthPotsHealAmount;
+						numHealthPots--;
+						System.out.println("\t> You drank a health pot, that healed you for " + healthPotsHealAmount +
+								"\n\t>You now have " + health + " HP." +
+								"\n\tYou have " + numHealthPots + " left!");
+					} else {
+						System.out.println("\t> You do not have any health pots left! Defeat enemy for a chance to get one!");
+					}
+					
+					
+				} else if (input.equals("3")) {
+					
+					System.out.println("\tYou run away from the " + enemy + "!");
+					continue GAME;
+					
+				} else {
+					System.out.println("\tInvalid Option!");
+				}
+				
+			}
+			if(health < 1)
+			{
+				System.out.println("You are dead");
+				break;
+			}
+			System.out.println("---------------------------------------");
+			System.out.println(" # " + enemy + " was defeated! #");
+			System.out.println(" # You have " + health + " HP left. #");
+			if(rand.nextInt(100) < healthPotionDropChance) {
+				numHealthPots++;
+				System.out.println(" # The " + enemy  + " dropped a health potion! #");
+				System.out.println(" # You have " + numHealthPots + " potion(s) #");
+			}
+			System.out.println("---------------------------------------");
+			System.out.println("What would you like to do?");
+			System.out.println("1. Continue Fighting");
+			System.out.println("2. Exit Game");
+			String input = scan.nextLine();
+			
+			while(!input.equals("1") && !input.equals("2")) {
+				System.out.println("Invalid Option!");
+				input = scan.nextLine();
+			}
+			
+			if(input.equals("1"))
+			{
+				System.out.println("You contunue the game!");
+				
+			}else if (input.equals("2")) {
+				System.out.println("You exit the game. Congrats!");
+				break;
+			}
+			System.out.println("########################");
+			System.out.println("Thank you for playing Don's Game");
+			System.out.println("########################");
+			
+		}
+		
+	}
+
+}

@@ -1,0 +1,95 @@
+package Taxes;
+
+import java.util.Scanner;
+
+public class Main {
+	private static double hourlyRate;
+	private static double salary;
+	private static int hoursWorked;
+	private static double annualSalary;
+	private static double taxesPaid;
+	
+
+	public static void main(String[] args) {
+		
+		calculateSalary();
+		calculateTaxes();
+
+	}
+	
+	public static void calculateSalary(){
+		Scanner scan = new Scanner(System.in);
+		System.out.println("What is your hourly rate?");
+		hourlyRate = scan.nextDouble();
+		System.out.println("How many hours do you ork in a month?");
+		hoursWorked = scan.nextInt();
+		salary = hoursWorked * hourlyRate;
+		System.out.println("Your salary in a month is: $" + salary + " before taxes.");
+		System.out.println("Your salary in a year is: $" + salary*12 + " before taxes.");
+	}
+	
+	public static void calculateTaxes() {
+		annualSalary = salary*12;
+		if (annualSalary <= 9875)
+		{
+			taxesPaid = salary * 0.1;
+			String strDouble = String.format("%.2f", taxesPaid);
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+			
+		} else if(annualSalary > 9875 && annualSalary <= 40125) {
+			double num = annualSalary - 9875;
+			taxesPaid = num * 0.12 + 9875*0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+			
+		} else if(annualSalary > 40126 && annualSalary <= 85525) {
+			double num = annualSalary - 9875 - 40125;
+			taxesPaid = num*0.22 + 40125*0.12 + 9875*0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+		} else if (annualSalary > 85526 && annualSalary <= 163300) {
+			double num = annualSalary - 9875 - 40125 - 85525;
+			taxesPaid = num * 0.24 + 85525 * 0.22 + 40125 * 0.12 + 9875 * 0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+		} else if (annualSalary > 163301 && annualSalary <= 207350) {
+			double num = annualSalary - 9875 - 40125 - 85525 - 163300;
+			taxesPaid = num * 0.32 + 163300 * 0.24 + 85525 * 0.22 + 40125 * 0.12 + 9875 * 0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+		} else if(annualSalary > 207351 && annualSalary <= 518400) {
+			double num = annualSalary - 9875 - 40125 - 85525 - 163300 - 207350;
+			taxesPaid = num * 0.35 + 207350 * 0.32 + 163300 * 0.24 + 85525 * 0.22 + 40125 * 0.12 + 9875 * 0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+		} else if (annualSalary > 518401) {
+			double num = annualSalary - 9875 - 40125 - 85525 - 163300 - 207350 - 518400;
+			taxesPaid = num * 0.37 + 518400 * 0.35 + 207350 * 0.32 + 163300 * 0.24 + 85525 * 0.22 + 40125 * 0.12 + 9875 * 0.1;
+			double takeHomePay = annualSalary - taxesPaid;
+			
+			String strDouble = String.format("%.2f", taxesPaid);
+			System.out.println("You owe $" + strDouble + " in taxes this year.");
+			System.out.println("Your take home pay this year is $" + takeHomePay);
+		}
+		
+	}
+
+}
